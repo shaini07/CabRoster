@@ -16,7 +16,6 @@ import com.vaadin.spring.annotation.UIScope;
 import com.blujay.ui.navigation.NavigationManager;
 import com.blujay.ui.views.admin.product.ProductAdminView;
 import com.blujay.ui.views.admin.user.UserAdminView;
-import com.blujay.ui.views.dashboard.DashboardView;
 import com.blujay.ui.views.storefront.StorefrontView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
