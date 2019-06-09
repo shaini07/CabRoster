@@ -13,13 +13,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.vaadin.spring.annotation.SpringComponent;
+import com.blujay.backend.DriverRepository;
 import com.blujay.backend.OrderRepository;
 import com.blujay.backend.PickupLocationRepository;
 import com.blujay.backend.ProductRepository;
 import com.blujay.backend.UserRepository;
 import com.blujay.backend.data.OrderState;
 import com.blujay.backend.data.Role;
+import com.blujay.backend.data.Status;
 import com.blujay.backend.data.entity.Customer;
+import com.blujay.backend.data.entity.Driver;
 import com.blujay.backend.data.entity.HistoryItem;
 import com.blujay.backend.data.entity.Order;
 import com.blujay.backend.data.entity.OrderItem;
@@ -51,7 +54,7 @@ public class DataGenerator implements HasLogger {
 
 	@Bean
 	public CommandLineRunner loadData(OrderRepository orderRepository, UserRepository userRepository,
-			ProductRepository productRepository, PickupLocationRepository pickupLocationRepository,
+	                DriverRepository driverRepository, ProductRepository productRepository, PickupLocationRepository pickupLocationRepository,
 			PasswordEncoder passwordEncoder) {
 		return args -> {
 			if (hasData(userRepository)) {
@@ -60,12 +63,19 @@ public class DataGenerator implements HasLogger {
 			}
 
 			getLogger().info("Generating demo data");
+			
 			getLogger().info("... generating users");
 			createUsers(userRepository, passwordEncoder);
+			
+			getLogger().info("... generating drivers");
+                        createDrivers(driverRepository);
+			
 			getLogger().info("... generating products");
 			createProducts(productRepository);
+			
 			getLogger().info("... generating pickup locations");
 			createPickupLocations(pickupLocationRepository);
+			
 			getLogger().info("... generating orders");
 			createOrders(orderRepository);
 
@@ -73,7 +83,13 @@ public class DataGenerator implements HasLogger {
 		};
 	}
 
-	private boolean hasData(UserRepository userRepository) {
+    private void createDrivers(DriverRepository driverRepository) {
+        Driver driver = new Driver("Dummy Driver", "TestLis", "98763464", "test@mail.com", Status.ACTIVE);
+        driverRepository.save(driver);
+
+    }
+
+    private boolean hasData(UserRepository userRepository) {
 		return userRepository.count() != 0L;
 	}
 

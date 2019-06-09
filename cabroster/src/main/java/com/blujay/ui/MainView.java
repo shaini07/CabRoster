@@ -14,6 +14,7 @@ import com.vaadin.navigator.ViewLeaveAction;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.annotation.UIScope;
 import com.blujay.ui.navigation.NavigationManager;
+import com.blujay.ui.view.admin.driver.DriverAdminView;
 import com.blujay.ui.views.admin.product.ProductAdminView;
 import com.blujay.ui.views.admin.user.UserAdminView;
 import com.blujay.ui.views.storefront.StorefrontView;
@@ -46,6 +47,7 @@ public class MainView extends MainViewDesign implements ViewDisplay {
 	public void init() {
 		attachNavigation(storefront, StorefrontView.class);
 		attachNavigation(users, UserAdminView.class);
+		attachNavigation(drivers, DriverAdminView.class);
 		attachNavigation(products, ProductAdminView.class);
 
 		logout.addClickListener(e -> logout());
